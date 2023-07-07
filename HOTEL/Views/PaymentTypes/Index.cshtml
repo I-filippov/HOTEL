@@ -1,0 +1,33 @@
+﻿@model IEnumerable<HOTEL.Models.PaymentType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentType1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentType1)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PaymentTypeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PaymentTypeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PaymentTypeId })
+        </td>
+    </tr>
+}
+
+</table>

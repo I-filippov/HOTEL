@@ -1,0 +1,64 @@
+﻿@model HOTEL.Models.Rooms
+
+@{
+    ViewBag.Title = "Номера";
+}
+
+<h3>Вы действительно хотите удалить эту запись?</h3>
+<div>
+    <h4>Номера</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomTypeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomTypeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomCapacity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomCapacity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomDescription)
+        </dd>
+
+       
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("< Назад к списку", "Index")
+        </div>
+    }
+</div>

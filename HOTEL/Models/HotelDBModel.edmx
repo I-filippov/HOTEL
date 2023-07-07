@@ -1,0 +1,431 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище HotelDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="PaymentId" />
+          </Key>
+          <Property Name="PaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookingId" Type="int" Nullable="false" />
+          <Property Name="PaymentTypeId" Type="int" Nullable="false" />
+          <Property Name="PaymentAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentType">
+          <Key>
+            <PropertyRef Name="PaymentTypeId" />
+          </Key>
+          <Property Name="PaymentTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentType" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoomBookings">
+          <Key>
+            <PropertyRef Name="BookingId" />
+          </Key>
+          <Property Name="BookingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CustomerNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerAdress" Type="nvarchar" MaxLength="500" />
+          <Property Name="CustomerName1" Type="nvarchar" MaxLength="500" />
+          <Property Name="CustomerName2" Type="nvarchar" MaxLength="500" />
+          <Property Name="CustomerName3" Type="nvarchar" MaxLength="500" />
+          <Property Name="BookingFrom" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="BookingTo" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="AssignRoomId" Type="int" Nullable="false" />
+          <Property Name="NoOfMembers" Type="int" Nullable="false" />
+          <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PaymentTypeId" Type="int" />
+          <Property Name="ServiceId" Type="int" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="500" />
+          <Property Name="Confirmed" Type="int" />
+        </EntityType>
+        <EntityType Name="Rooms">
+          <Key>
+            <PropertyRef Name="RoomId" />
+          </Key>
+          <Property Name="RoomId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoomNumber" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="RoomPrice" Type="int" Nullable="false" />
+          <Property Name="RoomTypeId" Type="int" Nullable="false" />
+          <Property Name="RoomCapacity" Type="int" Nullable="false" />
+          <Property Name="Square" Type="int" />
+          <Property Name="RoomDescription" Type="nvarchar" MaxLength="550" />
+          <Property Name="RoomImage1" Type="image" />
+          <Property Name="RoomImage2" Type="image" />
+          <Property Name="RoomImage3" Type="image" />
+          <Property Name="RoomImage4" Type="image" />
+          <Property Name="RoomImage5" Type="image" />
+        </EntityType>
+        <EntityType Name="RoomTypes">
+          <Key>
+            <PropertyRef Name="RoomTypeId" />
+          </Key>
+          <Property Name="RoomTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoomTypeName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Price" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_HOTEL_Payments_HOTEL_PaymentType_PaymentTypeId">
+          <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentType">
+              <PropertyRef Name="PaymentTypeId" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="PaymentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOTEL_RoomBookings_HOTEL_PaymentType_PaymentTypeId">
+          <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RoomBookings" Type="Self.RoomBookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentType">
+              <PropertyRef Name="PaymentTypeId" />
+            </Principal>
+            <Dependent Role="RoomBookings">
+              <PropertyRef Name="PaymentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOTEL_RoomBookings_HOTEL_Service_Id">
+          <End Role="Services" Type="Self.Services" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RoomBookings" Type="Self.RoomBookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoomBookings">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOTEL_Rooms_HOTEL_RoomTypes_RoomTypeId">
+          <End Role="RoomTypes" Type="Self.RoomTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomTypes">
+              <PropertyRef Name="RoomTypeId" />
+            </Principal>
+            <Dependent Role="Rooms">
+              <PropertyRef Name="RoomTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище HotelDBModelContainer">
+          <EntitySet Name="Payments" EntityType="Self.Payments" Schema="Hotel" store:Type="Tables" />
+          <EntitySet Name="PaymentType" EntityType="Self.PaymentType" Schema="Hotel" store:Type="Tables" />
+          <EntitySet Name="RoomBookings" EntityType="Self.RoomBookings" Schema="Hotel" store:Type="Tables" />
+          <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="Hotel" store:Type="Tables" />
+          <EntitySet Name="RoomTypes" EntityType="Self.RoomTypes" Schema="Hotel" store:Type="Tables" />
+          <EntitySet Name="Services" EntityType="Self.Services" Schema="Hotel" store:Type="Tables" />
+          <AssociationSet Name="FK_HOTEL_Payments_HOTEL_PaymentType_PaymentTypeId" Association="Self.FK_HOTEL_Payments_HOTEL_PaymentType_PaymentTypeId">
+            <End Role="PaymentType" EntitySet="PaymentType" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOTEL_RoomBookings_HOTEL_PaymentType_PaymentTypeId" Association="Self.FK_HOTEL_RoomBookings_HOTEL_PaymentType_PaymentTypeId">
+            <End Role="PaymentType" EntitySet="PaymentType" />
+            <End Role="RoomBookings" EntitySet="RoomBookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOTEL_RoomBookings_HOTEL_Service_Id" Association="Self.FK_HOTEL_RoomBookings_HOTEL_Service_Id">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="RoomBookings" EntitySet="RoomBookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOTEL_Rooms_HOTEL_RoomTypes_RoomTypeId" Association="Self.FK_HOTEL_Rooms_HOTEL_RoomTypes_RoomTypeId">
+            <End Role="RoomTypes" EntitySet="RoomTypes" />
+            <End Role="Rooms" EntitySet="Rooms" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HotelDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="PaymentId" />
+          </Key>
+          <Property Name="PaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentTypeId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PaymentType" Relationship="HotelDBModel.FK_HOTEL_Payments_HOTEL_PaymentType_PaymentTypeId" FromRole="Payments" ToRole="PaymentType" />
+        </EntityType>
+        <EntityType Name="PaymentType">
+          <Key>
+            <PropertyRef Name="PaymentTypeId" />
+          </Key>
+          <Property Name="PaymentTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentType1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Payments" Relationship="HotelDBModel.FK_HOTEL_Payments_HOTEL_PaymentType_PaymentTypeId" FromRole="PaymentType" ToRole="Payments" />
+          <NavigationProperty Name="RoomBookings" Relationship="HotelDBModel.FK_HOTEL_RoomBookings_HOTEL_PaymentType_PaymentTypeId" FromRole="PaymentType" ToRole="RoomBookings" />
+        </EntityType>
+        <EntityType Name="RoomBookings">
+          <Key>
+            <PropertyRef Name="BookingId" />
+          </Key>
+          <Property Name="BookingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAdress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BookingFrom" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="BookingTo" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="AssignRoomId" Type="Int32" Nullable="false" />
+          <Property Name="NoOfMembers" Type="Int32" Nullable="false" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PaymentTypeId" Type="Int32" />
+          <NavigationProperty Name="PaymentType" Relationship="HotelDBModel.FK_HOTEL_RoomBookings_HOTEL_PaymentType_PaymentTypeId" FromRole="RoomBookings" ToRole="PaymentType" />
+          <Property Name="CustomerEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceId" Type="Int32" />
+          <NavigationProperty Name="Services" Relationship="HotelDBModel.FK_HOTEL_RoomBookings_HOTEL_Service_Id" FromRole="RoomBookings" ToRole="Services" />
+          <Property Name="CustomerName1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Confirmed" Type="Int32" />
+          </EntityType>
+        <EntityType Name="Rooms">
+          <Key>
+            <PropertyRef Name="RoomId" />
+          </Key>
+          <Property Name="RoomId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoomNumber" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="RoomPrice" Type="Int32" Nullable="false" />
+          <Property Name="RoomTypeId" Type="Int32" Nullable="false" />
+          <Property Name="RoomCapacity" Type="Int32" Nullable="false" />
+          <Property Name="RoomDescription" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RoomTypes" Relationship="HotelDBModel.FK_HOTEL_Rooms_HOTEL_RoomTypes_RoomTypeId" FromRole="Rooms" ToRole="RoomTypes" />
+          <Property Name="RoomImage1" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="RoomImage2" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="RoomImage3" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="RoomImage4" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="RoomImage5" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Square" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RoomTypes">
+          <Key>
+            <PropertyRef Name="RoomTypeId" />
+          </Key>
+          <Property Name="RoomTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoomTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Rooms" Relationship="HotelDBModel.FK_HOTEL_Rooms_HOTEL_RoomTypes_RoomTypeId" FromRole="RoomTypes" ToRole="Rooms" />
+        </EntityType>
+        <EntityContainer Name="HotelDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Payments" EntityType="Self.Payments" />
+          <EntitySet Name="PaymentType" EntityType="Self.PaymentType" />
+          <EntitySet Name="RoomBookings" EntityType="Self.RoomBookings" />
+          <EntitySet Name="Rooms" EntityType="Self.Rooms" />
+          <EntitySet Name="RoomTypes" EntityType="Self.RoomTypes" />
+          <AssociationSet Name="FK_HOTEL_Rooms_HOTEL_RoomTypes_RoomTypeId" Association="HotelDBModel.FK_HOTEL_Rooms_HOTEL_RoomTypes_RoomTypeId">
+            <End Role="RoomTypes" EntitySet="RoomTypes" />
+            <End Role="Rooms" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOTEL_Payments_HOTEL_PaymentType_PaymentTypeId" Association="HotelDBModel.FK_HOTEL_Payments_HOTEL_PaymentType_PaymentTypeId">
+            <End Role="PaymentType" EntitySet="PaymentType" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOTEL_RoomBookings_HOTEL_PaymentType_PaymentTypeId" Association="HotelDBModel.FK_HOTEL_RoomBookings_HOTEL_PaymentType_PaymentTypeId">
+            <End Role="PaymentType" EntitySet="PaymentType" />
+            <End Role="RoomBookings" EntitySet="RoomBookings" />
+          </AssociationSet>
+          <EntitySet Name="Services" EntityType="HotelDBModel.Services" />
+          <AssociationSet Name="FK_HOTEL_RoomBookings_HOTEL_Service_Id" Association="HotelDBModel.FK_HOTEL_RoomBookings_HOTEL_Service_Id">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="RoomBookings" EntitySet="RoomBookings" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_HOTEL_Rooms_HOTEL_RoomTypes_RoomTypeId">
+          <End Type="HotelDBModel.RoomTypes" Role="RoomTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="HotelDBModel.Rooms" Role="Rooms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomTypes">
+              <PropertyRef Name="RoomTypeId" />
+            </Principal>
+            <Dependent Role="Rooms">
+              <PropertyRef Name="RoomTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOTEL_Payments_HOTEL_PaymentType_PaymentTypeId">
+          <End Type="HotelDBModel.PaymentType" Role="PaymentType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="HotelDBModel.Payments" Role="Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentType">
+              <PropertyRef Name="PaymentTypeId" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="PaymentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOTEL_RoomBookings_HOTEL_PaymentType_PaymentTypeId">
+          <End Type="HotelDBModel.PaymentType" Role="PaymentType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="HotelDBModel.RoomBookings" Role="RoomBookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentType">
+              <PropertyRef Name="PaymentTypeId" />
+            </Principal>
+            <Dependent Role="RoomBookings">
+              <PropertyRef Name="PaymentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="RoomBookings" Relationship="HotelDBModel.FK_HOTEL_RoomBookings_HOTEL_Service_Id" FromRole="Services" ToRole="RoomBookings" />
+        </EntityType>
+        <Association Name="FK_HOTEL_RoomBookings_HOTEL_Service_Id">
+          <End Type="HotelDBModel.Services" Role="Services" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="HotelDBModel.RoomBookings" Role="RoomBookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoomBookings">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище HotelDBModelContainer" CdmEntityContainer="HotelDBEntities">
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="HotelDBModel.Payments">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentType">
+            <EntityTypeMapping TypeName="HotelDBModel.PaymentType">
+              <MappingFragment StoreEntitySet="PaymentType">
+                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
+                <ScalarProperty Name="PaymentType1" ColumnName="PaymentType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomBookings">
+            <EntityTypeMapping TypeName="HotelDBModel.RoomBookings">
+              <MappingFragment StoreEntitySet="RoomBookings">
+                <ScalarProperty Name="Confirmed" ColumnName="Confirmed" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="CustomerName3" ColumnName="CustomerName3" />
+                <ScalarProperty Name="CustomerName2" ColumnName="CustomerName2" />
+                <ScalarProperty Name="CustomerName1" ColumnName="CustomerName1" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerNumber" ColumnName="CustomerNumber" />
+                <ScalarProperty Name="CustomerAdress" ColumnName="CustomerAdress" />
+                <ScalarProperty Name="BookingFrom" ColumnName="BookingFrom" />
+                <ScalarProperty Name="BookingTo" ColumnName="BookingTo" />
+                <ScalarProperty Name="AssignRoomId" ColumnName="AssignRoomId" />
+                <ScalarProperty Name="NoOfMembers" ColumnName="NoOfMembers" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="HotelDBModel.Rooms">
+              <MappingFragment StoreEntitySet="Rooms">
+                <ScalarProperty Name="Square" ColumnName="Square" />
+                <ScalarProperty Name="RoomImage5" ColumnName="RoomImage5" />
+                <ScalarProperty Name="RoomImage4" ColumnName="RoomImage4" />
+                <ScalarProperty Name="RoomImage3" ColumnName="RoomImage3" />
+                <ScalarProperty Name="RoomImage2" ColumnName="RoomImage2" />
+                <ScalarProperty Name="RoomImage1" ColumnName="RoomImage1" />
+                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+                <ScalarProperty Name="RoomNumber" ColumnName="RoomNumber" />
+                <ScalarProperty Name="RoomPrice" ColumnName="RoomPrice" />
+                <ScalarProperty Name="RoomTypeId" ColumnName="RoomTypeId" />
+                <ScalarProperty Name="RoomCapacity" ColumnName="RoomCapacity" />
+                <ScalarProperty Name="RoomDescription" ColumnName="RoomDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomTypes">
+            <EntityTypeMapping TypeName="HotelDBModel.RoomTypes">
+              <MappingFragment StoreEntitySet="RoomTypes">
+                <ScalarProperty Name="RoomTypeId" ColumnName="RoomTypeId" />
+                <ScalarProperty Name="RoomTypeName" ColumnName="RoomTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="HotelDBModel.Services">
+              <MappingFragment StoreEntitySet="Services">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

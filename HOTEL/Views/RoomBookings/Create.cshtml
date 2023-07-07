@@ -1,0 +1,367 @@
+﻿@model HOTEL.Models.RoomBookings
+@{
+    /**/
+
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Filippov Hotel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <style>
+        h1.heading {
+            color: goldenrod;
+            font-family: "Playfair Display", times, serif;
+            font-size: 2em;
+        }
+
+        .line-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .line-text {
+            flex: 1;
+            text-align: center;
+        }
+
+        .line-container::before,
+        .line-container::after {
+            content: "";
+            border-bottom: 1px solid black;
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .radio-button-small {
+            height: 16px;
+            width: 16px;
+        }
+
+        .radio-button-container {
+            display: inline-block;
+            vertical-align: top; /* changed from middle */
+        }
+
+        .radio-button-label {
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .container {
+            overflow: hidden;
+        }
+
+        .hr {
+            color: black;
+        }
+
+        .square-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 0;
+        }
+
+        .big-btn {
+            width: 200px;
+            height: 50px;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <br />
+        <h1 class="heading">БРОНИРОВАНИЕ</h1>
+        <h4>ГАРАНТИЯ ЛУЧШЕЙ ЦЕНЫ</h4>
+        <br />
+        <p>Почему выгодно бронировать на Filippov HOTEL?</p>
+        <p>Когда вы бронируете на официальном сайте Отеля, мы гарантируем, что <b>вы найдете самые низкие цены и получите наилучшие условия.</b> Да, здесь цена ниже, чем на туристических сайтах, и <b>мы предоставим множество других исключительных преимуществ</b>, чтобы максимально улучшить ваше пребывание  у нас.</p>
+
+        <br />
+    </div>
+    <div class="container" style="background-color:antiquewhite">
+
+        <div class="container" style="align-items:center; align-content:center">
+            @Html.AntiForgeryToken()
+            <br />
+            <div>
+                @Html.ActionLink("< К УСЛУГАМ", "Index", "Rooms")
+            </div>
+            <div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="line-container">
+                    <span class="line-text">Дополнительные услуги</span>
+                </div>
+                <br /><br />
+                <!-- Дополнительные услуги -->
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div>
+                                <label class="radio-button-label" for="serviceId1">Без услуг</label>
+                                <div class="radio-button-container">
+                                    @Html.RadioButtonFor(model => model.ServiceId, 4, new { Name = "ServiceId", @class = "form-control radio-button-small", id = "serviceId1", @checked = true })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                <label class="radio-button-label" for="serviceId2">Завтрак континентальный</label>
+                                <div class="radio-button-container">
+                                    @Html.RadioButtonFor(model => model.ServiceId, 1, new { Name = "ServiceId", @class = "form-control radio-button-small", id = "serviceId2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                <label class="radio-button-label" for="serviceId3">Завтрак американский</label>
+                                <div class="radio-button-container">
+                                    @Html.RadioButtonFor(model => model.ServiceId, 2, new { Name = "ServiceId", @class = "form-control radio-button-small", id = "serviceId3" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                <label class="radio-button-label" for="serviceId4">Завтрак английский</label>
+                                <div class="radio-button-container">
+                                    @Html.RadioButtonFor(model => model.ServiceId, 3, new { Name = "ServiceId", @class = "form-control radio-button-small", id = "serviceId4" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br /><br />
+                <p>
+                    Мы предлагаем Вам 3 варианта комплексного завтрака по специальной цене в ресторане отеля.
+                    Взимается предоплата в размере 100%, <b>в случае отказа от услуги стоимость не возвращается.</b>
+                    Завтрак проходит <b>с 7:00 до 10:00</b>. При выезде до 07:30 Вы можете забрать завтрак с собой в ланч-боксе.
+                </p>
+                <p>С вариантами меню ужина можно ознакомиться на нашем сайте: @Html.ActionLink("Меню", "Index", "Menus")</p>
+                <p>Завтрак континентальный: <span style="font-size:26px; color:goldenrod;">350 ₽</span>.</p>
+                <p>Завтрак американский: <span style="font-size:26px; color:goldenrod;">400 ₽</span>.</p>
+                <p>Завтрак английский: <span style="font-size:26px; color:goldenrod;">400 ₽</span>.</p>
+                <div class="line-container">
+                    <span class="line-text">Контактные данные</span>
+                </div>
+                <br /><br />
+                <!-- Контактные данные -->
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label" })
+                            <div>
+                                @Html.EditorFor(model => model.CustomerName, new { Name = "CustomerName", htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.CustomerNumber, htmlAttributes: new { @class = "control-label" })
+                            <div>
+                                @Html.EditorFor(model => model.CustomerNumber, new { Name = "CustomerNumber", htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CustomerNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.CustomerEmail, htmlAttributes: new { @class = "control-label" })
+                            <div>
+                                @Html.EditorFor(model => model.CustomerEmail, new { Name = "CustomerEmail", htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CustomerEmail, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.CustomerAdress, htmlAttributes: new { @class = "control-label" })
+                            <div>
+                                @Html.EditorFor(model => model.CustomerAdress, new { Name = "CustomerAdress", htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CustomerAdress, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br /><br />
+                <p>
+                    Проверьте правильность введенных данных, для подтверждения бронирования с вами свяжется администратор по указонному номеру телефона.
+                </p>
+                <p>
+                    Альтернативный способ подтверждения бронирования можете указать в разделе "Дополнительные комментарии" (WhatsApp,Telegram)
+                </p>
+                <p>
+                    Обращаем ваше внимание! Выплнение дополнительных пожеланий, оставленных в комментарияк к бронированию не гарантируется.
+                </p>
+                <br /><br />
+
+                <!-- Контактные данные -->
+                <div class="line-container">
+                    <span class="line-text">Информация о гостях</span>
+                </div>
+                <br /><br />
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div id="guests">
+                                <button type="button" class="btn btn-primary add-guest">Добавить гостя</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br /><br />
+                <!-- Контактные данные -->
+                <div class="line-container">
+                    <span class="line-text">Дополнительные комментарии</span>
+                </div>
+                <br /><br />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label" })
+                            <div>
+                                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control form-control-lg w-90", style = "height:200px" } })
+                                @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br /><br />
+                <div class="line-container">
+                    <span class="line-text">Заселение</span><br />
+                </div>
+                <h2 style="color:black; font-weight:bold">Время заезда и выезда</h2>
+                <p>
+                    <b>Уважаемые гости</b>, уведомляем вас о том, что в связи с высоким спросом в нашем отеле действует единое время заезда и выезда, приносим свои извинения за неудобства.
+                </p>
+                <p><b>Изменение времени заезда и выезда временно недоступно.</b></p>
+                <p>Стандартное время заезда - <b>после 15:00</b>, выезда - <b>до 12:00</b>.</p>
+                <br /><br />
+
+
+
+
+
+                <!-- Информация о бронировании -->
+                <div class="line-container">
+                    <span class="line-text">Детали бронирования</span>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <br /><br /><br />
+                        <div class="col-sm-4" style=" height: 50px; font-size: 20px; color:black; font-weight:bold">
+                            @ViewBag.DFtxt - @ViewBag.DTtxt, @ViewBag.days ночей,
+                            <br />
+                            гостей - @ViewBag.PE
+                        </div>
+                        <div id="total-price-container" class="col-sm-4" style=" height: 50px; font-size: 20px; color:black; font-weight:bold">
+                            Итоговая стоимость: <span style="font-size:26px; color:goldenrod;">@ViewBag.totalPrice ₽</span>.
+                        </div>
+                        <div class="col-sm-4" style=" height: 50px; font-size: 20px; color:black; font-weight:bold">
+                            <input type="submit" value="Забронировать" class="btn btn-primary square-btn big-btn" style="background-color:goldenrod; color: #FFFFFF; font-weight: bold;" />
+                        </div>
+                        <br /><br /><br />
+
+                    </div>
+                </div>
+
+
+
+                <!-- Остальные элементы формы -->
+                <div>
+                    @Html.HiddenFor(model => model.BookingFrom, new { Name = "BookingFrom", @Value = @ViewBag.DF.ToString("dd-MM-yyyy") })
+                </div>
+                <div style="display:none;">
+                    @Html.HiddenFor(model => model.BookingTo, new { Name = "BookingTo", @Value = @ViewBag.DT.ToString("dd-MM-yyyy") })
+                </div>
+                <div style="display:none;">
+                    @Html.HiddenFor(model => model.AssignRoomId, new { Name = "AssignRoomId", @Value = @ViewBag.ID })
+                </div>
+                <div style="display:none;">
+                    @Html.HiddenFor(model => model.NoOfMembers, new { Name = "NoOfMembers", @Value = @ViewBag.days })
+                </div>
+                <div style="display:none;">
+                    @Html.HiddenFor(model => model.TotalAmount, new { Name = "TotalAmount", @Value = @ViewBag.totalPrice })
+                </div>
+                <div style="display:none;">
+                    @Html.HiddenFor(model => model.PaymentTypeId, new { Name = "PaymentTypeId", @Value = 1 })
+                </div>
+                <div style="display:none;">
+                    @Html.HiddenFor(model => model.Confirmed, new { Name = "Confirmed", @Value = 1 })
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+    // Get a reference to the service radio buttons
+    var serviceRadios = document.querySelectorAll('input[name="ServiceId"]');
+
+    // Add an event listener to each radio button
+    serviceRadios.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            // Get the selected service ID
+            var selectedServiceId = parseInt(this.value);
+
+            // Calculate the new total price based on the selected service
+            var newTotalPrice = calculateTotalPrice(selectedServiceId);
+
+            // Update the total price span with the new value
+            var totalPriceSpan = document.querySelector('#total-price-container span');
+            totalPriceSpan.innerText = newTotalPrice + ' ₽';
+        });
+    });
+
+    // A function to calculate the total price based on the selected service ID
+    function calculateTotalPrice(serviceId) {
+        // TODO: replace this with your actual pricing logic
+        var basePrice = parseInt('@ViewBag.totalPrice');
+        switch (serviceId) {
+            case 0: // no service
+                return basePrice;
+            case 1: // standard breakfast
+                return basePrice + 350;
+            case 2: // hearty breakfast
+                return basePrice + 400;
+            case 3: // breakfast + dinner
+                return basePrice + 400;
+            default:
+                return basePrice;
+        }
+    }
+    </script>
+    <script>
+        $(document).ready(function () {
+            var maxGuests = 3;
+            var guestCount = 0;
+
+            $(".add-guest").click(function () {
+                if (guestCount < maxGuests) {
+                    guestCount++;
+                    var newGuest = '<div class="form-group"><label for="CustomerName' + guestCount + '">ФИО ' + guestCount + ' гостя:</label><input type="text" name="CustomerName' + guestCount + '" class="form-control" id="CustomerName' + guestCount + '" required><button type="button" class="btn btn-danger remove-guest">Убрать гостя</button></div>';
+                    $("#guests").append(newGuest);
+                }
+            });
+
+            $(document).on("click", ".remove-guest", function () {
+                if (guestCount > 0) {
+                    guestCount--;
+                    $(this).parent().remove();
+                }
+            });
+        });
+    </script>
+}

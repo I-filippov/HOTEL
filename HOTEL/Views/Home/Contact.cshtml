@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+@{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<style>
+    .contact-container {
+        display: flex;
+        flex-direction: row;
+        padding-left: 10%;
+        padding-top: 5%;
+    }
+
+        .contact-container img {
+            width: 50%;
+            height: auto;
+        }
+
+    .contact-info {
+        width: 50%;
+        padding-left: 50px;
+    }
+</style>
+
+
+
+<div class="contact-container">
+    
+    <img src="/Images/FAQ/contacts_01.jpg" alt="Your Image">
+    <div class="contact-info">
+        <h2>Контакты</h2>
+        <h3>Filippov Hotel</h3>
+        <address>
+            Ленинградская область, Всеволожский р-н, г.Мурино, Б-р Петровский 11/1<br />
+            <abbr title="Телефон">Т:</abbr>
+            +7-904-649-91-42
+        </address>
+
+        <address>
+            <strong>Поддержка:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+            <strong>Маркетинг:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+        </address>
+    </div>
+</div>

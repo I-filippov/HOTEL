@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/MainCss")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <script src="https://kit.fontawesome.com/bacc822a81.js" crossorigin="anonymous"></script>
+    <style>
+        .navbar {
+            min-height: 80px; /* Set minimum height to current height of navbar */
+            height: auto; /* Allow navbar to expand as needed when dropdowns are opened */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 0;padding-top:1%">
+        <div class="container-fluid">
+            <div class="navbar-header navbar-center">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Filippov Hotel", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="collapse navbar-collapse navbar-center" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Отель <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Номера", "ListRooms", "Rooms")</li>
+                            <li>@Html.ActionLink("Спецпредложения", "Index", "Special")</li>
+                            <li>@Html.ActionLink("Вопросы и ответы", "Index", "FAQ")</li>
+                            <li>@Html.ActionLink("Информация о бронировании", "Index", "RoomBookings")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Услуги <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Меню", "Index", "Menus")</li>
+                            <li>@Html.ActionLink("SPA - салон", "Index", "SPA")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Контакты <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Контакты", "Contact", "Home")</li>
+                        </ul>
+                    </li>
+
+                    <li><a href="@Url.Action("Index", "RoomBookings")" class="btn btn-default btn-book">Информация о бронировании</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="body">
+
+        @RenderBody()
+        <br /><br /><br />
+        <footer class="bg-black" style="background-color:#171717">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3 style="color:goldenrod">Отель на карте</h3>
+                        <hr class="text-white" />
+                        <!-- Вставьте код карты здесь -->
+                        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A45b0b3c4c2eac2b8de8b5f8ae4b0d5c9f4a8e94d14f0f81c8d06f1d6dd4f8538&amp;source=constructor" width="100%" height="300" frameborder="0"></iframe>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 style="color:goldenrod">Отель</h3>
+                        <hr class="text-white" />
+                        <p style="color:white"><i class="bi bi-chevron-right"></i> @Html.ActionLink("Номера", "ListRooms", "Rooms").</p>
+                        <p style="color:white"><i class="bi bi-chevron-right"></i> @Html.ActionLink("Меню", "Index", "Menus").</p>
+                        <p style="color:white"><i class="bi bi-chevron-right"></i> @Html.ActionLink("Информация о бронировании", "Index", "RoomBookings").</p>
+                        <p style="color:white"><i class="bi bi-chevron-right"></i> @Html.ActionLink("Спецпредложения", "Index", "Special").</p>
+                        <p style="color:white"><i class="bi bi-chevron-right"></i> @Html.ActionLink("Вопросы и ответы", "Index", "FAQ").</p>
+                        <p style="color:white"><i class="bi bi-chevron-right"></i> @Html.ActionLink("SPA - салон", "Index", "SPA").</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 style="color:goldenrod">Контакты</h3>
+                        <hr class="text-white" />
+                        <p style="color:white"><i class="bi bi-house" style="color:goldenrod"></i>&nbsp;&nbsp;&nbsp;   Ленинградская область, Всеволожский р-н, г.Мурино, Б-р Петровский 11/1</p>
+                        <p style="color:white"><i class="bi bi-phone" style="color:goldenrod"></i>&nbsp;&nbsp;&nbsp;   <a>+7-904-649-91-42</a> - офис</p>
+
+                        <p style="color:white"><i class="bi bi-envelope" style="color:goldenrod"></i>&nbsp;&nbsp;&nbsp;   Filippov_Hotel@mail.ru</p>
+                    </div>
+                </div>
+                <hr class="text-white" />
+                <p class="text-center" style="font-size:2em; color:goldenrod"><i class="fab fa-vk"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fab fa-whatsapp"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="bi bi-telegram"></i></p>
+                <p>
+                    При проблемах с доступом к сайтам и нужным онлайн-сервисам необходимо установить браузеры, которые поддерживают российский сертификат безопасности.
+                </p>
+                <p>
+                    Сайт защищён reCAPTCHA с применением Политики конфиденциальности и Условий использования от Google.
+                </p>
+                <p>
+                    © @DateTime.Now.Year – Иван Филиппов
+                </p>
+
+
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

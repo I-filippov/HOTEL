@@ -1,0 +1,146 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Filippov Hotel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <script src="https://kit.fontawesome.com/bacc822a81.js" crossorigin="anonymous"></script>
+    <style>
+        section.site-hero {
+            padding-top: 100px; /* Высота стандартного верхнего меню Bootstrap */
+        }
+
+        h1.heading {
+            color: goldenrod;
+            font-family: "Playfair Display", times, serif;
+            font-size: 3em;
+        }
+
+        .image-block {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .row {
+            margin: 0;
+        }
+
+        .col-md-6 {
+            margin-top: 30px;
+            padding: 30px 30px;
+        }
+
+            .col-md-6 img {
+                width: 100%;
+                max-height: 300px;
+                margin-bottom: 20px;
+            }
+
+            /*.col-md-6 ul {
+                margin-top: 20px;
+            }
+
+            .col-md-6 li {
+                margin-bottom: 5px;
+            }
+
+            .col-md-6 strong {
+                font-size: 20px;
+                display: block;
+                margin-bottom: 10px;
+            }*/
+
+            .col-md-6 p {
+                margin-top: 20px;
+            }
+
+        .line-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .line-text {
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+            color: goldenrod;
+            font-size: 2em;
+        }
+
+        .line-row::before,
+        .line-row::after {
+            content: "";
+            border-bottom: 1px solid black;
+            flex: 1;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <br />
+        <h1 class="heading">Спецпредложния</h1>
+        <h4>Почему выгодно бронировать на Filippov HOTEL?</h4>
+        <br />
+        <p>Когда вы бронируете на официальном сайте Отеля, мы гарантируем, что <b>вы найдете самые низкие цены и получите наилучшие условия.</b> Да, здесь цена ниже, чем на туристических сайтах, и <b>мы предоставим множество других исключительных преимуществ</b>, чтобы максимально улучшить ваше пребывание  у нас.</p>
+
+        <br />
+    </div>
+
+    <br />
+
+    <div class="row" style="padding-left:12%; padding-right:12%">
+        <div class="col-md-12" style="margin-bottom:15px">
+            <div class="col-md-12">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <img class="img-fluid my-4" src="/Images/fon-rooms.jpg" alt="Image">
+                    </div>
+                    <div class="col-md-6">
+                        <h2>Гарантия лучшей цены!</h2>
+                        <div class="col-md-5">
+                            <p> <i class="bi bi-question-circle-fill" style="color:goldenrod"></i> Есть цена ниже?</p>
+                        </div>
+                        <div class="col-md-7">
+                            <p> <i class="bi bi-exclamation-circle-fill" style="color:goldenrod"></i> Сделаем скидку!</p>
+                        </div>
+                        <p>Бронировать на официальном сайте Отеля «FilippovHotel» — ВСЕГДА ВЫГОДНО!</p>
+                        <br />
+                        <button type="button" onclick="location.href='@Url.Action("Garant_best_price")'" class="btn btn-primary">Подробнее</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img class="img-fluid my-4" src="/Images/Menu/continent.jpg" alt="Image">
+                    </div>
+                    <div class="col-md-6">
+                        <h2>Завтрак в номер</h2>
+                        <div class="col-md-5">
+                            <p> <i class="bi bi-people" style="color:goldenrod"></i> Персональный сервис</p>
+                        </div>
+                        <div class="col-md-7">
+                            <p> <i class="bi bi-exclamation-circle-fill" style="color:goldenrod"></i> Обслуживание в номера</p>
+                        </div>
+                        <p>Для удобства пребывания наших гостей в Отеле «Filippov Hotel» запущена новая услуга  — завтрак в номер по специальной цене.</p>
+                        <br />
+                        <button type="button" onclick="location.href='@Url.Action("Breakfest")'" class="btn btn-primary">Подробнее</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+

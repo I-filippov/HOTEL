@@ -1,0 +1,135 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Filippov Hotel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <script src="https://kit.fontawesome.com/bacc822a81.js" crossorigin="anonymous"></script>
+    <style>
+        section.site-hero {
+            padding-top: 100px; /* Высота стандартного верхнего меню Bootstrap */
+        }
+
+        h1.heading {
+            color: goldenrod;
+            font-family: "Playfair Display", times, serif;
+            font-size: 3em;
+        }
+
+        .image-block {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .row {
+            margin: 0;
+        }
+
+        .col-md-6 {
+            margin-top: 30px;
+            padding: 30px 30px;
+        }
+
+            .col-md-6 img {
+                width: 100%;
+                max-height: 300px;
+                margin-bottom: 20px;
+            }
+
+            .col-md-6 ul {
+                margin-top: 20px;
+            }
+
+            .col-md-6 li {
+                margin-bottom: 5px;
+            }
+
+            .col-md-6 strong {
+                font-size: 20px;
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .col-md-6 p {
+                margin-top: 20px;
+            }
+
+        .line-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .line-text {
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+            color: goldenrod;
+            font-size: 2em;
+        }
+
+        .line-row::before,
+        .line-row::after {
+            content: "";
+            border-bottom: 1px solid black;
+            flex: 1;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+
+@using (Html.BeginForm())
+{
+
+    <div class="row" style="padding-left:12%; padding-right:12%">
+        <div class="col-md-12" style="margin-bottom:15px">
+            <div class="col-md-12">
+                <div>
+                    <img class="img-fluid my-4" src="/Images/Делюкс_трехместный.jpg" alt="Image">
+                </div>
+                <br />
+                <div class="col-md-12">
+                    <h1 class="heading">Гарантия лучшей цены</h1>
+                    <p>
+                        Мы гарантируем, что цена номера на официальном сайте Отеля «Санкт-Петербург» самая выгодная. Если вы найдете цену ниже, чем представлено на сайте Отеля, мы с удовольствием забронируем номер по этой цене! Для получения специальных условий при бронировании номера на сайте Отеля укажите, пожалуйста, адрес сайта, на котором вам была предложена более низкая цена. Обращаем ваше внимание на то, что стоимость номера должна быть указана на один и тот же выбранный вами период размещения и ту же категорию номера.
+                    </p>
+                    <p>
+                        Период действия и доступность номеров для бронирования по данной акции ограничены.
+                    </p>
+                    <br /><br /><br /><br />
+                </div>
+                
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row" style="padding-left:15%; padding-right:15%">
+        <div class="line-row">
+            <span class="line-text">Забронируйте сейчас</span>
+        </div>
+        <div class="col-md-4 with-icon">
+            <h3>Гарантия низкой цены</h3>
+            <p> <i class="bi bi-check2-circle" style="font-size:25px; color:goldenrod"></i> Гарантированно низкие цены при бронировании на официальном сайте Отеля «Filippov Hotel»</p>
+        </div>
+        <div class="col-md-4 with-icon">
+            <h3>Бесплатная отмена бронирования</h3>
+            <p>  <i class="bi bi-check2-circle" style="font-size:25px; color:goldenrod"></i> Вы не платите за отмену или изменения в бронировании при заказе через официальный сайт Отеля «Filippov Hotel»</p>
+        </div>
+        <div class="col-md-4 with-icon">
+            <h3>Бесплатный Wi-Fi в номере</h3>
+            <p>  <i class="bi bi-check2-circle" style="font-size:25px; color:goldenrod"></i> На всей территории Отеля «Filippov Hotel» действует бесплатный Wi-Fi</p>
+        </div>
+    </div>
+}
+
+

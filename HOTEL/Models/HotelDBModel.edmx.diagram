@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b4aade4a3b584b74bc437299b3dfc0ac" Name="Diagram1" ZoomLevel="96">
+        <EntityTypeShape EntityType="HotelDBModel.Payments" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDBModel.PaymentType" Width="1.5" PointX="0.5" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDBModel.RoomBookings" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDBModel.Rooms" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDBModel.RoomTypes" Width="1.5" PointX="5.375" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="HotelDBModel.FK_HOTEL_Rooms_HOTEL_RoomTypes_RoomTypeId" />
+        <AssociationConnector Association="HotelDBModel.FK_HOTEL_Payments_HOTEL_PaymentType_PaymentTypeId" />
+        <AssociationConnector Association="HotelDBModel.FK_HOTEL_RoomBookings_HOTEL_PaymentType_PaymentTypeId" />
+        <EntityTypeShape EntityType="HotelDBModel.Services" Width="1.5" PointX="9.75" PointY="0.75" />
+        <AssociationConnector Association="HotelDBModel.FK_HOTEL_RoomBookings_HOTEL_Service_Id" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

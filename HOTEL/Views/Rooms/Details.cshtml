@@ -1,0 +1,410 @@
+﻿@model IEnumerable<HOTEL.Models.Rooms>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Filippov Hotel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <script src="https://kit.fontawesome.com/bacc822a81.js" crossorigin="anonymous"></script>
+    <style>
+        section.site-hero {
+            padding-top: 100px; /* Высота стандартного верхнего меню Bootstrap */
+        }
+
+        .carousel {
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 60%;
+        }
+
+        .carousel-inner .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            max-width: 100vw;
+            max-height: 70vh;
+        }
+
+        h1.heading {
+            color: goldenrod;
+            font-family: "Playfair Display", times, serif;
+            font-size: 2em;
+        }
+
+        .image-block {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .row {
+            margin: 0;
+        }
+
+        .col-md-6 {
+            margin-top: 30px;
+            padding: 30px 30px;
+        }
+
+            .col-md-6 img {
+                width: 100%;
+                max-height: 300px;
+                margin-bottom: 20px;
+            }
+
+            .col-md-6 ul {
+                margin-top: 20px;
+            }
+
+            .col-md-6 li {
+                margin-bottom: 5px;
+            }
+
+            .col-md-6 strong {
+                font-size: 20px;
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .col-md-6 p {
+                margin-top: 20px;
+            }
+
+        .line-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .line-text {
+            flex: 1;
+            text-align: center;
+            font-weight:bold;
+            color:goldenrod;
+            font-size:2em;
+        }
+
+        .line-row::before,
+        .line-row::after {
+            content: "";
+            border-bottom: 1px solid black;
+            flex: 1;
+            margin: 0 10px;
+        }
+       
+        
+    </style>
+</head>
+@using (Html.BeginForm())
+{
+
+    <div class="row" style="padding-left:12%; padding-right:12%">
+        @foreach (var room in Model)
+        {
+            <div class="col-md-12" style="margin-bottom:15px">
+                <div class="room-block card mb-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="myCarousel-@room.RoomId" class="carousel slide" data-ride="carousel">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    @for (int i = 0; i < 5; i++)
+                                    {
+                                        <li data-target="#myCarousel-@room.RoomId" data-slide-to="@i" class="@((i == 0) ? "active" : "")"></li>
+                                    }
+                                </ol>
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="item active">
+                                        <img src="@Url.Action("GetImage", "Rooms", new { id = room.RoomId, imageNumber = 1 })" alt="Room Image 1" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="@Url.Action("GetImage", "Rooms", new { id = room.RoomId, imageNumber = 2 })" alt="Room Image 2" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="@Url.Action("GetImage", "Rooms", new { id = room.RoomId, imageNumber = 3 })" alt="Room Image 3" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="@Url.Action("GetImage", "Rooms", new { id = room.RoomId, imageNumber = 4 })" alt="Room Image 4" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="@Url.Action("GetImage", "Rooms", new { id = room.RoomId, imageNumber = 5 })" alt="Room Image 5" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <h1 class="heading">@room.RoomTypes.RoomTypeName</h1>
+                        <p> @room.RoomTypes.RoomTypeName впечатляет современными удобствами и необычным европейским дизайном.</p>
+                        <p>Все номера оснащены кондиционерами и имеют бесплатный доступ к сети Wi-Fi. </p>
+                        <p>Площадь — @room.Square м². Номер представлен в двух вариантах: однокомнатный и двухкомнатный.</p>
+                        <p>Часть номеров имеет панорамные ванные комнаты.</p>
+                        <p>Узнать о специальном предложении на питание в Отеле вы можете здесь</p>
+                        <p></p>
+                    </div>
+                    @if (room.RoomTypes.RoomTypeId == 6)
+                    {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img class="img-fluid my-4" src="/Images/Стандарт_одноместный.jpg" alt="Image">
+                                <strong>В номере:</strong>
+                                <ul>
+                                    <li>кровать single (ширина 90 см)</li>
+                                    <li>кондиционер</li>
+                                    <li>шкаф, диван, журнальный столик, кресла, стул, письменный стол</li>
+                                    <li>душевая кабина</li>
+                                    <li>фен</li>
+                                    <li>халат, одноразовые тапочки</li>
+                                    <li>бритвенный и зубной наборы, шапочки для душа (по запросу)</li>
+                                    <li>письменные принадлежности</li>
+                                    <li>все номера для некурящих</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <img class="img-fluid my-4" src="/Images/Стандарт_одноместный (3).jpg" alt="Image">
+                                <strong>Включено в ваше размещение:</strong>
+                                <ul>
+                                    <li>24-часовой рум-сервис</li>
+                                    <li>интерактивное IP-телевидение (плазменная панель диагональю 32")</li>
+                                    <li>бесплатный доступ к Wi-Fi</li>
+                                    <li>завтрак не входит в стоимость номера. Если вы желаете завтракать в Отеле, пожалуйста, выберите соответствующий тариф с включенным завтраком при бронировании номера</li>
+                                </ul>
+                                <p>Обращаем ваше внимание, что на фото изображен типовой номер. Конфигурация номера может несколько отличаться от представленного на фото.</p>
+                            </div>
+                        </div>
+                    }
+                    @if (room.RoomTypes.RoomTypeId == 7)
+                    {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img class="img-fluid my-4" src="/Images/Стандарт_двухместный.jpg" alt="Image">
+                                <strong>В номере:</strong>
+                                <ul>
+                                    <li>кровать double/twin</li>
+                                    <li>кондиционер</li>
+                                    <li>шкаф, диван, журнальный столик, кресла, стул, письменный стол</li>
+                                    <li>душевая кабина</li>
+                                    <li>фен</li>
+                                    <li>халат, одноразовые тапочки</li>
+                                    <li>бритвенный и зубной наборы, шапочки для душа (по запросу)</li>
+                                    <li>письменные принадлежности</li>
+                                    <li>все номера для некурящих</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <img class="img-fluid my-4" src="/Images/Стандарт_двухместный (5).jpg" alt="Image">
+                                <strong>Включено в ваше размещение:</strong>
+                                <ul>
+                                    <li>24-часовой рум-сервис</li>
+                                    <li>интерактивное IP-телевидение (плазменная панель диагональю 32")</li>
+                                    <li>бесплатный доступ к Wi-Fi</li>
+                                    <li>завтрак не входит в стоимость номера. Если вы желаете завтракать в Отеле, пожалуйста, выберите соответствующий тариф с включенным завтраком при бронировании номера</li>
+                                </ul>
+                                <p>Обращаем ваше внимание, что на фото изображен типовой номер. Конфигурация номера может несколько отличаться от представленного на фото.</p>
+                            </div>
+                        </div>
+                    }
+                    @if (room.RoomTypes.RoomTypeId == 8)
+                    {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img class="img-fluid my-4" src="/Images/Комфорт_двухместный (2).jpg" alt="Image">
+                                <strong>В номере:</strong>
+                                <ul>
+                                    <li>кровать single (ширина 90 см)</li>
+                                    <li>кондиционер</li>
+                                    <li>шкаф, диван, журнальный столик, кресла, стул, письменный стол</li>
+                                    <li>мини-холодильник, мини-бар, чайник, чайный набор</li>
+                                    <li>душевая кабина</li>
+                                    <li>фен</li>
+                                    <li>халат, одноразовые тапочки</li>
+                                    <li>бритвенный и зубной наборы, шапочки для душа (по запросу)</li>
+                                    <li>письменные принадлежности</li>
+                                    <li>возможна установка дополнительной кровати</li>
+                                    <li>все номера для некурящих</li>
+                                    <li>номера повышенной комфортности</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <img class="img-fluid my-4" src="/Images/Комфорт_двухместный (5).jpg" alt="Image">
+                                <strong>Включено в ваше размещение:</strong>
+                                <ul>
+                                    <li>24-часовой рум-сервис</li>
+                                    <li>интерактивное IP-телевидение (плазменная панель диагональю 32")</li>
+                                    <li>бесплатный доступ к Wi-Fi</li>
+                                    <li>завтрак не входит в стоимость номера. Если вы желаете завтракать в Отеле, пожалуйста, выберите соответствующий тариф с включенным завтраком при бронировании номера</li>
+                                </ul>
+                                <p>Обращаем ваше внимание, что на фото изображен типовой номер. Конфигурация номера может несколько отличаться от представленного на фото.</p>
+                            </div>
+                        </div>
+                    }
+                    @if (room.RoomTypes.RoomTypeId == 9)
+                    {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img class="img-fluid my-4" src="/Images/Комфорт_двухместный (2).jpg" alt="Image">
+                                <strong>В номере:</strong>
+                                <ul>
+                                    <li>кровати double/twin (по запросу)</li>
+                                    <li>кондиционер</li>
+                                    <li>шкаф, диван, журнальный столик, кресла, стул, письменный стол</li>
+                                    <li>мини-холодильник, мини-бар, чайник, чайный набор</li>
+                                    <li>душевая кабина</li>
+                                    <li>фен</li>
+                                    <li>халат, одноразовые тапочки</li>
+                                    <li>бритвенный и зубной наборы, шапочки для душа (по запросу)</li>
+                                    <li>письменные принадлежности</li>
+                                    <li>возможна установка дополнительной кровати</li>
+                                    <li>все номера для некурящих</li>
+                                    <li>номера повышенной комфортности</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <img class="img-fluid my-4" src="/Images/Комфорт_двухместный (5).jpg" alt="Image">
+                                <strong>Включено в ваше размещение:</strong>
+                                <ul>
+                                    <li>24-часовой рум-сервис</li>
+                                    <li>интерактивное IP-телевидение (плазменная панель диагональю 32")</li>
+                                    <li>бесплатный доступ к Wi-Fi</li>
+                                    <li>завтрак не входит в стоимость номера. Если вы желаете завтракать в Отеле, пожалуйста, выберите соответствующий тариф с включенным завтраком при бронировании номера</li>
+                                </ul>
+                                <p>Обращаем ваше внимание, что на фото изображен типовой номер. Конфигурация номера может несколько отличаться от представленного на фото.</p>
+                            </div>
+                        </div>
+                    }
+                    @if (room.RoomTypes.RoomTypeId == 10)
+                    {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img class="img-fluid my-4" src="/Images/Комфорт_двухместный (2).jpg" alt="Image">
+                                <strong>В номере:</strong>
+                                <ul>
+                                    <li>двуспальная кровать</li>
+                                    <li>кондиционер</li>
+                                    <li>шкаф, диван, журнальный столик, кресла, стул, письменный стол</li>
+                                    <li>мини-холодильник, мини-бар, чайник, чайный набор</li>
+                                    <li>душевая кабина</li>
+                                    <li>фен</li>
+                                    <li>халат, одноразовые тапочки</li>
+                                    <li>бритвенный и зубной наборы, шапочки для душа (по запросу)</li>
+                                    <li>письменные принадлежности</li>
+                                    <li>возможна установка дополнительной кровати</li>
+                                    <li>все номера для некурящих</li>
+                                    <li>номера повышенной комфортности</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <img class="img-fluid my-4" src="/Images/Комфорт_двухместный (5).jpg" alt="Image">
+                                <strong>Включено в ваше размещение:</strong>
+                                <ul>
+                                    <li>24-часовой рум-сервис</li>
+                                    <li>интерактивное IP-телевидение (плазменная панель диагональю 32")</li>
+                                    <li>бесплатный доступ к Wi-Fi</li>
+                                    <li>завтрак не входит в стоимость номера. Если вы желаете завтракать в Отеле, пожалуйста, выберите соответствующий тариф с включенным завтраком при бронировании номера</li>
+                                </ul>
+                                <p>Обращаем ваше внимание, что на фото изображен типовой номер. Конфигурация номера может несколько отличаться от представленного на фото.</p>
+                            </div>
+                        </div>
+                    }
+                    @if (room.RoomTypes.RoomTypeId == 11)
+                    {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img class="img-fluid my-4" src="/Images/Делюкс_трехместный.jpg" alt="Image">
+                                <strong>В номере:</strong>
+                                <ul>
+                                    <li>двуспальная кровать</li>
+                                    <li>кондиционер</li>
+                                    <li>шкаф, диван, журнальный столик, кресла, стул, письменный стол</li>
+                                    <li>мини-холодильник, мини-бар, чайник, чайный набор</li>
+                                    <li>душевая кабина</li>
+                                    <li>фен</li>
+                                    <li>халат, одноразовые тапочки</li>
+                                    <li>бритвенный и зубной наборы, шапочки для душа (по запросу)</li>
+                                    <li>письменные принадлежности</li>
+                                    <li>возможна установка дополнительной кровати</li>
+                                    <li>все номера для некурящих</li>
+                                    <li>номера повышенной комфортности</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <img class="img-fluid my-4" src="/Images/Делюкс_трехместный (5).jpg" alt="Image">
+                                <strong>Включено в ваше размещение:</strong>
+                                <ul>
+                                    <li>24-часовой рум-сервис</li>
+                                    <li>интерактивное IP-телевидение (плазменная панель диагональю 32")</li>
+                                    <li>бесплатный доступ к Wi-Fi</li>
+                                    <li>завтрак не входит в стоимость номера. Если вы желаете завтракать в Отеле, пожалуйста, выберите соответствующий тариф с включенным завтраком при бронировании номера</li>
+                                </ul>
+                                <p>Обращаем ваше внимание, что на фото изображен типовой номер. Конфигурация номера может несколько отличаться от представленного на фото.</p>
+                            </div>
+                        </div>
+                    }
+                    @if (room.RoomTypes.RoomTypeId == 11)
+                    {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img class="img-fluid my-4" src="/Images/Люкс.jpg" alt="Image">
+                                <strong>В номере:</strong>
+                                <ul>
+                                    <li>двуспальная кровать</li>
+                                    <li>кондиционер</li>
+                                    <li>шкаф, диван, журнальный столик, кресла, стул, письменный стол</li>
+                                    <li>мини-холодильник, мини-бар, чайник, чайный набор</li>
+                                    <li>душевая кабина</li>
+                                    <li>фен</li>
+                                    <li>халат, одноразовые тапочки</li>
+                                    <li>бритвенный и зубной наборы, шапочки для душа (по запросу)</li>
+                                    <li>письменные принадлежности</li>
+                                    <li>возможна установка дополнительной кровати</li>
+                                    <li>все номера для некурящих</li>
+                                    <li>номера повышенной комфортности</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <img class="img-fluid my-4" src="/Images/Люкс (5).jpg" alt="Image">
+                                <strong>Включено в ваше размещение:</strong>
+                                <ul>
+                                    <li>24-часовой рум-сервис</li>
+                                    <li>интерактивное IP-телевидение (плазменная панель диагональю 32")</li>
+                                    <li>бесплатный доступ к Wi-Fi</li>
+                                    <li>завтрак не входит в стоимость номера. Если вы желаете завтракать в Отеле, пожалуйста, выберите соответствующий тариф с включенным завтраком при бронировании номера</li>
+                                </ul>
+                                <p>Обращаем ваше внимание, что на фото изображен типовой номер. Конфигурация номера может несколько отличаться от представленного на фото.</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="row" style="padding-left:15%; padding-right:15%">
+        <div class="line-row">
+            <span class="line-text">Забронируйте сейчас</span>
+        </div>
+        <div class="col-md-4 with-icon">
+            <h3>Гарантия низкой цены</h3>
+            <p> <i class="bi bi-check2-circle" style="font-size:25px; color:goldenrod"></i> Гарантированно низкие цены при бронировании на официальном сайте Отеля «Filippov Hotel»</p>
+        </div>
+        <div class="col-md-4 with-icon">
+            <h3>Бесплатная отмена бронирования</h3>
+            <p>  <i class="bi bi-check2-circle" style="font-size:25px; color:goldenrod"></i> Вы не платите за отмену или изменения в бронировании при заказе через официальный сайт Отеля «Filippov Hotel»</p>
+        </div>
+        <div class="col-md-4 with-icon">
+            <h3>Бесплатный Wi-Fi в номере</h3>
+            <p>  <i class="bi bi-check2-circle" style="font-size:25px; color:goldenrod"></i> На всей территории Отеля «Filippov Hotel» действует бесплатный Wi-Fi</p>
+        </div>
+    </div>
+}
+

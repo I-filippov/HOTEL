@@ -1,0 +1,272 @@
+﻿@model IEnumerable<HOTEL.Models.RoomBookings>
+
+
+@if (User.IsInRole("Admin"))
+{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<header>
+    <style>
+        .input-group-prepend,
+        .input-group-append {
+            width: auto;
+        }
+
+        .input-group .form-control {
+            width: auto;
+        }
+
+        .status-1 {
+            background-color: lightgreen;
+        }
+
+        .status-2 {
+            background-color: lightyellow;
+        }
+
+        .status-3 {
+            background-color: lightblue;
+        }
+
+        .status-4 {
+            background-color: lightcoral;
+        }
+        #bookings-table {
+            width: 100%;
+            overflow-x: auto;
+            align-content: center;
+            align-items: center;
+            height: 700px;
+            overflow-y: auto;
+        }
+    </style>
+    
+</header>
+@if (User.IsInRole("Admin"))
+{
+    <br /><br />
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm("Index", "RoomBookings", FormMethod.Get))
+            {
+                <div class="input-group mb-3">
+                    @Html.TextBox("bookingId", ViewBag.BookingId as string, new { @class = "form-control", @placeholder = "Номер бронирования" })
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-outline-secondary">Найти</button>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-6">
+            @using (Html.BeginForm("Index", "RoomBookings", FormMethod.Get))
+            {
+                <div class="input-group mb-3">
+                    @Html.TextBox("customerNumber", ViewBag.CustomerNumber as string, new { @class = "form-control", @placeholder = "Номер телефона" })
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-outline-secondary">Найти</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+<br /><br />
+@if (!User.IsInRole("Admin"))
+{
+    <br /><br />
+
+    <div class="container">
+        <p>
+            Для уточнения деталей вашего бронирования введите номер бронирования, либо ваш номер телефона.
+        </p>
+        <p>
+            Так же, подробная информация была отправлена на электронную почту, которую вы указали при бронировании.
+        </p>
+    </div>
+
+    <div class="row" style="margin-top:1%; padding-left:18%; padding-right:18%;">
+
+        @using (Html.BeginForm("Index", "RoomBookings", FormMethod.Get))
+        {
+            <div class="col-md-3">
+                @Html.TextBox("bookingId", ViewBag.BookingId as string, new { @class = "form-control", @placeholder = "Введите номер бронирования" })
+            </div>
+            <div class="col-md-2" style="margin:5px;">
+                <button type="submit" class="btn btn-outline-secondary">Найти</button>
+            </div>
+        }
+        @using (Html.BeginForm("Index", "RoomBookings", FormMethod.Get))
+        {
+            <div class="col-md-3">
+                @Html.TextBox("customerNumber", ViewBag.CustomerNumber as string, new { @class = "form-control", @placeholder = "Введите номер телефона" })
+            </div>
+            <div class="col-md-2" style="margin:5px;">
+                <button type="submit" class="btn btn-outline-secondary">Найти</button>
+            </div>
+        }
+
+    </div>
+
+}
+<br /><br />
+      <div id="bookings-table">
+          <table class="table">
+              <tr>
+                  <th>
+                          Номер бронирования
+                  </th>
+                  <th>
+                      Статус
+                  </th>
+                  <th>
+                      ФИО
+                  </th>
+                  <th>
+                      Телефон
+                  </th>
+                  <th>
+                      Почта
+                  </th>
+                  <th>
+                      Адрес
+                  </th>
+                  <th>
+                          Дата заезда
+                  </th>
+
+                  <th>
+                          Дата выезда
+                  </th>
+                  <th>
+                      Номер комнаты
+                  </th>
+                  <th>
+                      Количество ночей
+                  </th>
+                  <th>
+                      Пожелания
+                  </th>
+                  <th>
+                      Гость 1
+                  </th>
+                  <th>
+                      Гость 2
+                  </th>
+                  <th>
+                      Гость 3
+                  </th>
+                  <th>
+                      Доп. услуги
+                  </th>
+                  <th>
+                      Итоговая стоимость
+                  </th>
+                  <th>
+                      Оплата
+                  </th>
+                  <th></th>
+              </tr>
+
+              @foreach (var item in Model)
+              {
+                  <tr class="status-@item.Confirmed">
+                      <td>
+                          @Html.DisplayFor(modelItem => item.BookingId)
+                      </td>
+                      <td>
+                          @if (item.Confirmed == 1)
+                          {
+                              @Html.Raw("Новое")
+                          }
+                          else if (item.Confirmed == 2)
+                          {
+                              @Html.Raw("Подтверждено")
+                          }
+                          else if (item.Confirmed == 3)
+                          {
+                              @Html.Raw("В работе")
+                          }
+                          else if (item.Confirmed == 4)
+                          {
+                              @Html.Raw("Завершено")
+                          }
+                          else if (item.Confirmed == 5)
+                          {
+                              @Html.Raw("Отменено")
+                          }
+                          else
+                          {
+                              @Html.Raw("Неизвестный статус")
+                          }
+                      </td>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.CustomerName)
+                      </td>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.CustomerNumber)
+                      </td>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.CustomerEmail)
+                      </td>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.CustomerAdress)
+                      </td>
+                      <td>
+
+                          @{
+                              string date_start = ((DateTime)item.BookingFrom).Date.ToString("d");
+                          }
+                          <text>@date_start</text>
+                      </td>
+                      <td>
+
+                          @{
+                              string date_end = ((DateTime)item.BookingTo).Date.ToString("d");
+                          }
+                          <text>@date_end</text>
+                      </td>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.AssignRoomId)
+                      </td>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.NoOfMembers)
+                      </td>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.Comments)
+                      </td>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.CustomerName1)
+                      </td>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.CustomerName2)
+                      </td>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.CustomerName3)
+                      </td>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.Services.Name)
+                      </td>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.TotalAmount)
+                      </td>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.PaymentType.PaymentType1)
+                      </td>
+                      @if (User.IsInRole("Admin"))
+                      {
+                          <td>
+                              <div class="btn-group">
+                                  <button type="button" onclick="location.href='@Url.Action("Edit", new { id = item.BookingId })'" class="btn btn-warning"><i class="fa fa-pencil"></i> Редактировать</button>
+                                  <button type="button" onclick="location.href='@Url.Action("Delete", new { id = item.BookingId })'" class="btn btn-danger"><i class="fa fa-trash"></i> Удалить</button>
+                              </div>
+                          </td>
+                      }
+                  </tr>
+              }
+
+          </table>
+      </div>

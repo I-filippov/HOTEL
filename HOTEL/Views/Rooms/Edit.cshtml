@@ -1,0 +1,114 @@
+﻿@model HOTEL.ViewModel.RoomViewModel
+
+@{
+    ViewBag.Title = "Номера";
+}
+
+
+
+
+@using (Html.BeginForm("Edit", "Rooms", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Номера</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.RoomId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.RoomNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.RoomNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoomPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.RoomPrice, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.RoomPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoomTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.RoomTypeId, Model.ListOfRoomType, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.RoomTypeId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoomCapacity, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.RoomCapacity, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.RoomCapacity, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Square, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Square, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Square, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoomDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.RoomDescription, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.RoomDescription, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    @*Загрузка фотографий*@
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoomImage1, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="uploads[0]" value="Обзор..." />
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoomImage2, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="uploads[1]" value="Обзор..." />
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoomImage3, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="uploads[2]" value="Обзор..." />
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoomImage4, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="uploads[3]" value="Обзор..." />
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoomImage5, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="uploads[4]" value="Обзор..." />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Сохранить" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Назад к списку", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

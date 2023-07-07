@@ -1,0 +1,104 @@
+﻿@model HOTEL.Models.RoomBookings
+
+@{
+    ViewBag.Title = "Бронирование";
+}
+
+<h2>Удаление</h2>
+
+<h3>Вы действительно хотите удалить эту запись?</h3>
+<div>
+    <h4>Бронирование</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerAdress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerAdress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BookingFrom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookingFrom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BookingTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookingTo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AssignRoomId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignRoomId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoOfMembers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoOfMembers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentTypeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentTypeId)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        @Html.ActionLink("< Назад к списку", "Index")
+    </div>
+    }
+</div>

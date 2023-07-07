@@ -1,0 +1,108 @@
+﻿@model IEnumerable<HOTEL.Models.Rooms>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Filippov Hotel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <script src="https://kit.fontawesome.com/bacc822a81.js" crossorigin="anonymous"></script>
+    <style>
+        section.site-hero {
+            padding-top: 100px; /* Высота стандартного верхнего меню Bootstrap */
+        }
+
+        .carousel {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .carousel-inner .item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        h1.heading {
+            color: goldenrod;
+            font-family: "Playfair Display", times, serif;
+            font-size: 2em;
+        }
+    </style>
+</head>
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <br />
+        <h1 class="heading">БРОНИРОВАНИЕ</h1>
+        <h4>ГАРАНТИЯ ЛУЧШЕЙ ЦЕНЫ</h4>
+        <br />
+        <p>Почему выгодно бронировать на Filippov HOTEL?</p>
+        <p>Когда вы бронируете на официальном сайте Отеля, мы гарантируем, что <b>вы найдете самые низкие цены и получите наилучшие условия.</b> Да, здесь цена ниже, чем на туристических сайтах, и <b>мы предоставим множество других исключительных преимуществ</b>, чтобы максимально улучшить ваше пребывание  у нас.</p>
+
+        <br />
+    </div>
+
+    <br />
+
+    <div class="row" style="padding-left:18%; padding-right:18%">
+        @foreach (var room in Model)
+        {
+            <div class="col-md-12" style="margin-top:15px;margin-bottom:15px">
+                <div class="room-block card mb-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="myCarousel-@room.RoomId" class="carousel slide" data-ride="carousel">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    @for (int i = 0; i < 5; i++)
+                                    {
+                                        <li data-target="#myCarousel-@room.RoomId" data-slide-to="@i" class="@((i == 0) ? "active" : "")"></li>
+                                    }
+                                </ol>
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="item active">
+                                        <img src="@Url.Action("GetImage", "Rooms", new { id = room.RoomId, imageNumber = 1 })" alt="Room Image 1" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="@Url.Action("GetImage", "Rooms", new { id = room.RoomId, imageNumber = 2 })" alt="Room Image 2" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="@Url.Action("GetImage", "Rooms", new { id = room.RoomId, imageNumber = 3 })" alt="Room Image 3" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="@Url.Action("GetImage", "Rooms", new { id = room.RoomId, imageNumber = 4 })" alt="Room Image 4" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="@Url.Action("GetImage", "Rooms", new { id = room.RoomId, imageNumber = 5 })" alt="Room Image 5" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body d-flex flex-column">
+                                <h3 class="card-title" style="color:goldenrod">@room.RoomTypes.RoomTypeName</h3>
+                                <br />
+                                <p class="card-text"><i class="fas fa-users-cog mr-1"></i> &nbsp;до @room.RoomCapacity гостей &nbsp;&nbsp;&nbsp;<i class="bi bi-arrows-angle-expand"></i>&nbsp; @room.Square м²</p>
+                                <br />
+                                <p class="card-text">@room.RoomDescription</p>
+                                <br />
+                                <button type="button" onclick="location.href='@Url.Action("Details", new { id = room.RoomId })'" class="btn btn-primary">Подробнее</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+}
+
